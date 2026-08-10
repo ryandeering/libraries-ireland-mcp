@@ -122,9 +122,9 @@ knows about a given title with a pinch of salt.
 
 ## Courtesy towards the catalogue
 
-The site's `robots.txt` asks robots not to trawl its database. This tool only answers questions a
-person has actually asked, one at a time, and the restraint is enforced in a single place,
-[`SpydusClient`](src/LibrariesIreland.Mcp/Spydus/SpydusClient.cs):
+This is a free, non-commercial project. I make nothing from it, and it does not resell, republish or
+mirror the catalogue's data anywhere. The site's `robots.txt` asks robots not to trawl its database,
+so this tool only answers questions a person has actually asked.
 
 - every request serialised behind a global lock, with a minimum gap of 1.1 seconds
 - responses cached in process, and branch reference data cached for a fortnight
@@ -132,7 +132,7 @@ person has actually asked, one at a time, and the restraint is enforced in a sin
 - hard result caps, with no pagination crawling and no prefetching
 - read-only throughout: it writes nothing to the catalogue and nothing to any library account
 
-Please leave that in place if you fork it.
+**Please leave that in place if you fork it.**
 
 ## How it works
 
@@ -162,3 +162,6 @@ Build Tools.
 ## Licence
 
 MIT. Not affiliated with Libraries Ireland, any local authority, or Civica.
+
+Free and non-commercial. There is nothing to buy, no hosted service behind it, no accounts, no
+analytics and no data leaving your machine other than the catalogue searches you ask for. 
