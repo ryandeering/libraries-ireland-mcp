@@ -1,0 +1,21 @@
+namespace LibrariesIreland.Mcp;
+
+[JsonSourceGenerationOptions(JsonSerializerDefaults.Web, UseStringEnumConverter = true)]
+[JsonSerializable(typeof(SearchResponse))]
+[JsonSerializable(typeof(BookSummary))]
+[JsonSerializable(typeof(BookDetail))]
+[JsonSerializable(typeof(AvailabilityReport))]
+[JsonSerializable(typeof(Holding))]
+[JsonSerializable(typeof(Branch))]
+[JsonSerializable(typeof(BranchSearchResponse))]
+[JsonSerializable(typeof(HomeLibrary))]
+[JsonSerializable(typeof(HomeLibraryConfig))]
+[JsonSerializable(typeof(Scope))]
+[JsonSerializable(typeof(MaterialType))]
+[JsonSerializable(typeof(ContentKind))]
+[JsonSerializable(typeof(Audience))]
+[JsonSerializable(typeof(IReadOnlyList<Holding>))]
+[JsonSerializable(typeof(IReadOnlyList<Branch>))]
+[JsonSerializable(typeof(IReadOnlyList<BookSummary>))]
+[JsonSerializable(typeof(IReadOnlyList<string>))]
+internal sealed partial class AppJsonSerializerContext : JsonSerializerContext;

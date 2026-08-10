@@ -1,0 +1,47 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
+        with:
+          global-json-file: global.json
+
+      - run: dotnet restore --locked-mode
+
+      # Warnings are errors and .editorconfig style is enforced in both projects, so this fails on a
+      # style slip or a trimming warning as readily as on a compile error.
+      - run: dotnet build --no-restore -c Release
+
+      - run: dotnet test --no-build -c Release
+
+      - run: dotnet format --verify-no-changes
+
+      - run: sudo apt-get update && sudo apt-get install -y clang zlib1g-dev
+
+      # Trimming and reflection faults only appear at publish time, and the handshake proves the
+      # binary a user would download still speaks MCP.
+      - run: dotnet publish src/LibrariesIreland.Mcp -c Release -r linux-x64 --no-restore -o dist
+
+      - run: python3 scripts/mcp-handshake.py dist/libraries-ireland-mcp
+
+      # Syntax only. pwsh is preinstalled on the Ubuntu runners, so this needs no second job.
+      - name: Check the installers parse
+        run: |
+          sh -n install.sh
+          pwsh -NoProfile -Command '
+            $errors = $null
+            $null = [System.Management.Automation.Language.Parser]::ParseFile(
+              "install.ps1", [ref]$null, [ref]$errors)
+            if ($errors) { $errors | ForEach-Object { Write-Host $_ }; exit 1 }'
