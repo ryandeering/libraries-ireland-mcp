@@ -1,0 +1,8 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/LibrariesIreland.Mcp/LibrariesIreland.Mcp.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/LibrariesIreland.Mcp.Tests/LibrariesIreland.Mcp.Tests.csproj" />
+  </Folder>
+</Solution>
